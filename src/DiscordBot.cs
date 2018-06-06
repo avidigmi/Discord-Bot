@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Timers;
+using WhalesFargo.Helpers;
 using WhalesFargo.Services;
 
 namespace WhalesFargo
@@ -49,12 +51,18 @@ namespace WhalesFargo
                 m_Client.ConnectionState == ConnectionState.Connected)
                     return;
             }
-              
+
+
             // Start to make the connection to the server
             m_Client = new DiscordSocketClient();
             m_Commands = new CommandService();
             m_Services = InstallServices(); // We install services by adding it to a service collection.
             m_RetryConnection = true;
+
+            Timer m_Timer = new Timer();
+            m_Timer.Interval = 150000;
+            m_Timer.Elapsed += CheckForTime_ElapsedAsync;
+            m_Timer.Start();
 
             // The bot will automatically reconnect once the initial connection is established. 
             // To keep trying, we put it in a loop.
@@ -65,6 +73,7 @@ namespace WhalesFargo
                 {
                     // Set the connecting status.
                     SetConnectionStatus("Connecting");
+
 
                     // Get the token from the application settings.
                     string token = GetBotToken(m_TokenFile);
@@ -79,6 +88,8 @@ namespace WhalesFargo
                     // Install commands once the client has logged in.
                     await InstallCommands();
 
+
+
                     break;
                 }
                 catch
@@ -90,7 +101,13 @@ namespace WhalesFargo
                         return;
                     }
                 }
+
+
+
             }
+
+
+
 
             // Doesn't end the program until the whole thing is done.
             await Task.Delay(-1);
@@ -150,6 +167,9 @@ namespace WhalesFargo
                 if (ConnectionStatus.Equals("Connected")) Program.UI.DisableConnectionToken();
             }
         }
+
+
+
 
         /**
          * InstallServices
@@ -292,6 +312,35 @@ namespace WhalesFargo
             Console.WriteLine(msg.ToString());
             if (Program.UI != null) Program.UI.SetConsoleText(msg.ToString());
             return Task.CompletedTask;
+        }
+
+
+
+
+
+        public async void CheckForTime_ElapsedAsync(object sender, ElapsedEventArgs e)
+        {
+            bool m_validTime = false;
+            var channel = m_Client.GetChannel(439611590078103562) as SocketTextChannel; // You can add references to any channel you wish
+
+
+            DateTime currentUTC = DateTime.UtcNow;
+
+
+            // Declare the times we need for guild battle.
+            DateTime GuildBattle_A = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 16, 50, 0);
+            DateTime GuildBattle_A_End = GuildBattle_A.AddMinutes(10);
+            DateTime GuildBattle_B = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 21, 50, 0);
+            DateTime GuildBattle_B_End = GuildBattle_B.AddMinutes(10);
+            DateTime GuildBattle_C = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 0, 50, 0);
+            DateTime GuildBattle_C_End = GuildBattle_C.AddMinutes(10);
+
+            if (DateTime.Compare(currentUTC, GuildBattle_A) > 0 & DateTime.Compare(currentUTC, GuildBattle_A_End) < 0) m_validTime = true;
+            else if (DateTime.Compare(currentUTC, GuildBattle_B) > 0 & DateTime.Compare(currentUTC, GuildBattle_B_End) < 0) m_validTime = true;
+            else if (DateTime.Compare(currentUTC, GuildBattle_C) > 0 & DateTime.Compare(currentUTC, GuildBattle_C_End) < 0) m_validTime = true;
+
+            if (m_validTime) await channel.SendMessageAsync("<@&405854488478613515>, Get yo asses ready for GVG.");
+
         }
 
     }
