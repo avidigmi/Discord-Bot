@@ -60,7 +60,7 @@ namespace WhalesFargo
             m_RetryConnection = true;
 
             Timer m_Timer = new Timer();
-            m_Timer.Interval = 150000;
+            m_Timer.Interval = 120000;
             m_Timer.Elapsed += CheckForTime_ElapsedAsync;
             m_Timer.Start();
 
