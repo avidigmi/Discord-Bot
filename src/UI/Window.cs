@@ -159,5 +159,10 @@ namespace WhalesFargo.UI
                 SystemTray.ShowBalloonTip(1000);
             }
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

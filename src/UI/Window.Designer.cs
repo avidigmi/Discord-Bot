@@ -38,6 +38,7 @@
             this.ConnectionStatusLabel = new System.Windows.Forms.Label();
             this.SystemTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.AudioText = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ConsoleText
@@ -124,13 +125,24 @@
             this.AudioText.Text = "Nothing";
             this.AudioText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(225, 205);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 15);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Created by Dom";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SlateGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(334, 211);
+            this.ClientSize = new System.Drawing.Size(332, 225);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.AudioText);
             this.Controls.Add(this.ConnectionStatusLabel);
             this.Controls.Add(this.ConnectionButton);
@@ -162,5 +174,6 @@
         private System.Windows.Forms.Label ConnectionStatusLabel;
         private System.Windows.Forms.NotifyIcon SystemTray;
         private System.Windows.Forms.Label AudioText;
+        private System.Windows.Forms.Label label2;
     }
 }
