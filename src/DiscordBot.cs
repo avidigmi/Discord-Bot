@@ -335,11 +335,28 @@ namespace WhalesFargo
             DateTime GuildBattle_C = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 0, 50, 0);
             DateTime GuildBattle_C_End = GuildBattle_C.AddMinutes(10);
 
-            if (DateTime.Compare(currentUTC, GuildBattle_A) > 0 & DateTime.Compare(currentUTC, GuildBattle_A_End) < 0) m_validTime = true;
-            else if (DateTime.Compare(currentUTC, GuildBattle_B) > 0 & DateTime.Compare(currentUTC, GuildBattle_B_End) < 0) m_validTime = true;
-            else if (DateTime.Compare(currentUTC, GuildBattle_C) > 0 & DateTime.Compare(currentUTC, GuildBattle_C_End) < 0) m_validTime = true;
+            TimeSpan TimeDiff = new TimeSpan();
+            if (Helpers.Tools.Between(DateTime.UtcNow, GuildBattle_A, GuildBattle_A_End))
+            {
+                m_validTime = true;
+                TimeDiff = GuildBattle_A_End.Subtract(DateTime.UtcNow);
+            }
+            else if (Helpers.Tools.Between(DateTime.UtcNow, GuildBattle_B, GuildBattle_B_End))
+            {
+                m_validTime = true;
+                TimeDiff = GuildBattle_B_End.Subtract(DateTime.UtcNow);
 
-            if (m_validTime) await channel.SendMessageAsync("<@&405854488478613515>, Get yo asses ready for GVG.");
+            }
+            else if (Helpers.Tools.Between(DateTime.UtcNow, GuildBattle_C, GuildBattle_C_End)){
+                m_validTime = true;
+                TimeDiff = GuildBattle_C_End.Subtract(DateTime.UtcNow);
+
+            }
+
+            if (m_validTime)
+            {
+                await channel.SendMessageAsync("<@&405854488478613515>, Guild Battle will begin in " + TimeDiff.Minutes + " minute(s). Message was sent at " + currentUTC);
+            }
 
         }
 
