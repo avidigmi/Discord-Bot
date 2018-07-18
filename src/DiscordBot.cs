@@ -279,11 +279,11 @@ namespace WhalesFargo
 
 
 
-        public async void CheckForTime_ElapsedAsync(object sender, ElapsedEventArgs e)
+        public void CheckForTime_ElapsedAsync(object sender, ElapsedEventArgs e)
         {
             bool m_validTime = false;
             var channel = m_Client.GetChannel(439611590078103562) as SocketTextChannel; // You can add references to any channel you wish
-
+            var channel2 = m_Client.GetChannel(428336328158216203) as SocketTextChannel;
 
             DateTime currentUTC = DateTime.UtcNow;
 
@@ -316,7 +316,9 @@ namespace WhalesFargo
 
             if (m_validTime)
             {
-                await channel.SendMessageAsync("<@&405854488478613515>, Guild Battle will begin in " + TimeDiff.Minutes + " minute(s). Message was sent at " + currentUTC);
+                channel.SendMessageAsync("<@&405854488478613515>, Guild Battle will begin in " + TimeDiff.Minutes + " minute(s). Message was sent at " + currentUTC);
+                channel2.SendMessageAsync("Beep Boop, Guild Battle will begin in " + TimeDiff.Minutes + " minute(s).");
+
             }
 
         }
