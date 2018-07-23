@@ -47,6 +47,35 @@ namespace WhalesFargo.Modules
             await Task.Delay(0);
         }
 
+
+        [Command("db")]
+        [Alias("db")]
+        [Remarks("!db [command]")]
+        [Summary("The bot will check the DB for the command and return the message.")]
+        public async Task DB([Remainder] string usr_msg = "")
+        {
+            m_Service.SayMessage(usr_msg);
+            await Task.Delay(0);
+        }
+
+        [Command("SavedCommands")]
+        [Alias("SavedCommands")]
+        [Remarks("!SavedCommands")]
+        [Summary("The bot will return all commands that exist in the database")]
+        public async Task SavedCommands([Remainder] string usr_msg = "")
+        {
+
+            var emb = new EmbedBuilder();
+            emb.WithTitle("Here is the list of modules.");
+
+
+
+
+            m_Service.SayMessage(usr_msg);
+            await Task.Delay(0);
+        }
+      
+
         [Command("Clear")]
         [Remarks("!clear [num]")]
         [Summary("Allows admins to clear [num] amount of messages from current channel")]

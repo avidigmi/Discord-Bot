@@ -289,11 +289,11 @@ namespace WhalesFargo
 
 
             // Declare the times we need for guild battle.
-            DateTime GuildBattle_A = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 16, 50, 0);
+            DateTime GuildBattle_A = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 16, 45, 0);
             DateTime GuildBattle_A_End = GuildBattle_A.AddMinutes(10);
-            DateTime GuildBattle_B = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 21, 50, 0);
+            DateTime GuildBattle_B = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 21, 45, 0);
             DateTime GuildBattle_B_End = GuildBattle_B.AddMinutes(10);
-            DateTime GuildBattle_C = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 0, 50, 0);
+            DateTime GuildBattle_C = new DateTime(currentUTC.Year, currentUTC.Month, currentUTC.Day, 0, 45, 0);
             DateTime GuildBattle_C_End = GuildBattle_C.AddMinutes(10);
 
             TimeSpan TimeDiff = new TimeSpan();
@@ -314,9 +314,11 @@ namespace WhalesFargo
 
             }
 
+            TimeDiff = TimeDiff - new TimeSpan(0, 5, 0);
+
             if (m_validTime)
             {
-                channel.SendMessageAsync("<@&405854488478613515>, Guild Battle will begin in " + TimeDiff.Minutes + " minute(s). Message was sent at " + currentUTC);
+                channel.SendMessageAsync("<@&405854488478613515>, Guild Battle will begin in " + TimeDiff.Minutes + " minute(s).");
                 channel2.SendMessageAsync("Beep Boop, Guild Battle will begin in " + TimeDiff.Minutes + " minute(s).");
 
             }
