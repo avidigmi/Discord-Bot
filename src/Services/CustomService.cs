@@ -52,13 +52,11 @@ namespace WhalesFargo.Services
 #endif
             if (output == (int)E_LogOutput.Console)
             {
-                if (Program.UI != null) Program.UI.SetConsoleText(withDate);
                 Console.WriteLine("DEBUG -- " + withDate);
             }
             if (output == (int)E_LogOutput.Reply) DiscordReply($"`{s}`");
             if (output == (int)E_LogOutput.Playing)
             {
-                if (Program.UI != null) Program.UI.SetAudioText(s);
                 DiscordPlaying(s);
             }
         }

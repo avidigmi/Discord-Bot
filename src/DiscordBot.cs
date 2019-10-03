@@ -41,7 +41,6 @@ namespace WhalesFargo
         {
             ConnectionStatus = s;
             if (arg != null) Console.WriteLine(arg);
-            if (Program.UI != null) { Program.UI.SetConnectionStatus(s); }
         }
 
         // This function is called, when the client is fully connected.
@@ -260,7 +259,6 @@ namespace WhalesFargo
         private Task Log(LogMessage msg)
         {
             Console.WriteLine(msg.ToString());
-            if (Program.UI != null) Program.UI.SetConsoleText(msg.ToString());
             return Task.CompletedTask;
         }
 
